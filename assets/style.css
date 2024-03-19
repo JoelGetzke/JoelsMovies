@@ -1,5 +1,22 @@
 .bold-underlined {
-    font-weight: bold;
     text-decoration: underline;
-    text-decoration-color: red;
+    text-decoration-color: #e83283;
+    text-underline-offset: 0.2em;
+}
+
+.padding-bottom {
+    padding-bottom: 1em;
+}
+
+.container-one{
+    border: 1px solid black;
+    width: 400px;
+    margin: 0 auto;
+    background-color: #e83283;
+    color:black;
+}
+
+.container-one button, .container-one a  {
+    background-color: rgba(255, 192, 203, 0.4);
+    color: white; /* Set button text color */
 }
