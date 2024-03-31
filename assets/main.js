@@ -1,5 +1,5 @@
 const apiKey = '535b82486819425b363ecd51e605db3c';
-const apiUrl = 'https://www.themoviedb.org';
+const apiUrl = 'https://api.themoviedb.org';
 
 // Example endpoint to get a list of movies
 const endpoint = `${apiUrl}/movie`;
