@@ -20,3 +20,13 @@
     background-color: rgba(255, 192, 203, 0.4);
     color: white; /* Set button text color */
 }
+
+.joels-border {
+    color: black; /* Text color */
+    border-right: black 1px solid; /* Right border */
+    padding-right:10px;
+   
+}
+.joels-border:hover {
+    color: black; /* Specify text color when hovered over */
+}

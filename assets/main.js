@@ -1,5 +1,5 @@
 const apiKey = '535b82486819425b363ecd51e605db3c';
-const apiUrl = 'https://api.movies.com'; //chabnge this
+const apiUrl = 'https://api.themoviedb.org'; //chabnge this
 
 // Example endpoint to get a list of movies
 const endpoint = `${apiUrl}/movies`;
