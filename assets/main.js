@@ -2,7 +2,7 @@ const apiKey = '535b82486819425b363ecd51e605db3c';
 const apiUrl = 'https://api.themoviedb.org';
 
 // Example endpoint to get a list of movies
-const endpoint = `${apiUrl}/movie`;
+const endpoint = `${apiUrl}/3/trending/movie/week`;
 
 // Constructing the request URL with API key
 const requestUrl = `${endpoint}?api_key=${apiKey}`;
