@@ -1,4 +1,6 @@
 import { apiKey, apiUrl} from './api.js';
+const button = document.querySelector('.trendingButton');
+
 
 // Example endpoint to get a list of trending movies for a day
 const trendingEndpoint = `${apiUrl}/3/trending/movie/day`;
@@ -38,6 +40,10 @@ for (let i = 1; i <= totalPages; i++) {
             console.error(`Error fetching data for page ${i}:`, error);
         });
 }
+
+button.addEventListener('click', () => {
+   alert('Button clicked!');
+});
 
 
 
