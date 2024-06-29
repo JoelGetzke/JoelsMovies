@@ -1,10 +1,8 @@
-import { apiKey, apiUrl} from './api.js';
-const button = document.querySelector('.trendingButton');
+import { apiKey, apiUrl } from './api.js'; // Ensure these are defined in api.js
 
 
 // Example endpoint to get a list of trending movies for a day
 const trendingEndpoint = `${apiUrl}/3/trending/movie/day`;
-
 
 // Function to fetch data for a specific page
 function fetchData(pageNumber, pageSize) {
@@ -41,9 +39,42 @@ for (let i = 1; i <= totalPages; i++) {
         });
 }
 
-button.addEventListener('click', () => {
-   alert('Button clicked!');
-});
+
+
+
+const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/"; // Base URL for images
+const IMAGE_SIZE = "w200"; // Supported image size
+
+const getMovies = () => {
+    // Fetch the data directly using fetchData function
+    fetchData(1, 20)
+    .then(data => {
+        if (data && data.results) {
+            data.results.forEach(movie => {
+                // Log movie title and overview
+                console.log(movie.title);
+                console.log(movie.overview);
+                
+                // Create an img element for the movie poster
+                const img = document.createElement('img');
+                img.src = `${IMAGE_BASE_URL}${IMAGE_SIZE}${movie.poster_path}`; // Combine base URL, size, and poster path
+                img.alt = movie.title;
+                img.id = `movie-${movie.id}`; // Specific ID for the image
+
+                // Append the image to the DOM
+                document.body.appendChild(img);
+            });
+        } else {
+            console.error("Data is not in expected format", data);
+        }
+    })
+    .catch(error => {
+        console.error("Error fetching movies:", error);
+    });
+}
+
+// Sample usage - do not modify
+getMovies();
 
 
 
