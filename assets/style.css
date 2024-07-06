@@ -30,3 +30,21 @@
 .joels-border:hover {
     color: black; /* Specify text color when hovered over */
 }
+.movie-posters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Adjust gap between images */
+    margin-left: -10px; /* Adjust to compensate for flex gap */
+}
+
+.movie-poster {
+    width: 200px; /* Adjust width of each image */
+    height: auto;
+    margin-left: 10px; /* Add left margin to each image */
+    cursor: pointer;
+    border: 2px solid pink; /* Pink border */
+    padding: 5px; /* Add padding around the image */
+}
+
+
