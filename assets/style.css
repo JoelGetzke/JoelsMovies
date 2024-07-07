@@ -51,3 +51,19 @@
     margin-left: 10px;
 }
 
+.movie-reel {
+    width: 50px;
+    height: auto;
+    position: absolute;
+    left: 0;
+    animation: moveReel 5s linear infinite;
+}
+@keyframes moveReel {
+    0% { left: 0; }
+    50% { left: calc(100% - 50px); }
+    100% { left: 0; }
+}
+
+.navbar-brand {
+    margin-left: 10px;
+}
