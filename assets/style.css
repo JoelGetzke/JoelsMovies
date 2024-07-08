@@ -8,6 +8,12 @@
     padding-bottom: 1em;
 }
 
+
+.container{
+    width: 100%;
+  
+}
+
 .container-one{
     border: 1px solid black;
     width: 400px;
@@ -36,16 +42,35 @@
     justify-content: center;
     gap: 20px; /* Adjust gap between images */
     margin-left: -10px; /* Adjust to compensate for flex gap */
+    transition: transform 0.2s ease-in-out;
+   
+}
+.movie-poster:hover {
+    transform: scale(1.05); /* Scale up on hover */
+    border-color: #e83283; /* Change border color on hover */
 }
 
 .movie-poster {
-    width: 200px; /* Adjust width of each image */
-    height: auto;
-    margin-left: 10px; /* Add left margin to each image */
+    width: auto; /* Let the image size determine the width */
+    height: auto; /* Maintain aspect ratio */
     cursor: pointer;
     border: 2px solid pink; /* Pink border */
     padding: 5px; /* Add padding around the image */
+   
 }
+#posters-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* No gap between images */
+    margin: 0; /* Remove margin */
+    padding: 0; /* Remove padding */
+    margin-left: -10px; /* Adjust to compensate for flex gap */
+}
+
+
+
+
 
 .margin-left {
     margin-left: 10px;
