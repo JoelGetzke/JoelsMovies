@@ -8,10 +8,8 @@
     padding-bottom: 1em;
 }
 
-
 .container{
     width: 100%;
-  
 }
 
 .container-one{
@@ -31,11 +29,12 @@
     color: black; /* Text color */
     border-right: black 1px solid; /* Right border */
     padding-right:10px;
-   
 }
+
 .joels-border:hover {
     color: black; /* Specify text color when hovered over */
 }
+
 .movie-posters {
     display: flex;
     flex-wrap: wrap;
@@ -43,8 +42,9 @@
     gap: 20px; /* Adjust gap between images */
     margin-left: -10px; /* Adjust to compensate for flex gap */
     transition: transform 0.2s ease-in-out;
-   
+    border-radius: 0 !important; /* Ensure no border-radius */
 }
+
 .movie-poster:hover {
     transform: scale(1.05); /* Scale up on hover */
     border-color: #e83283; /* Change border color on hover */
@@ -56,20 +56,18 @@
     cursor: pointer;
     border: 2px solid pink; /* Pink border */
     padding: 5px; /* Add padding around the image */
-   
+    border-radius: 0 !important; /* Ensure no border-radius */
 }
+
 #posters-section {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px; /* No gap between images */
+    gap: 20px; /* Adjust gap between images */
     margin: 0; /* Remove margin */
     padding: 0; /* Remove padding */
     margin-left: -10px; /* Adjust to compensate for flex gap */
 }
-
-
-
 
 
 .margin-left {
