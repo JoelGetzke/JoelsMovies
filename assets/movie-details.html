@@ -8,45 +8,65 @@
     <link rel="stylesheet" type="text/css" href="../assets/style.css">
     <title>Movie Details</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .movie-info {
-            margin-top: 20px;
-            margin-left:20px;
-        }
-        .movie-info img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin-bottom: 10px;
-            border: 2px solid pink; /* Pink border */
-            padding: 5px; /* Padding around the image */
-        }
-        .movie-info h2 {
-            font-size: 34px;
-            margin-bottom: 10px;
-        }
-        .movie-info p {
-            font-size: 20px;
-            line-height: 1.6;
-        }
-        .movie-info p#movie-vote-average {
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            margin-top: -65px;
-            text-decoration: underline;
-            text-decoration-color: #e83283;
-            text-decoration-thickness: 4px; /* Adjust thickness of the underline */
-            text-underline-offset: 6px; /* Adjust offset to move the underline down */
-        }
-        .movie-info p#movie-release-date {
-            font-size: 18px;
-            font:italic;
-           
-        }
-    </style>
+      body {
+          font-family: Arial, sans-serif;
+      }
+      .movie-details {
+          display: flex;
+          align-items: flex-start;
+          margin-top: 20px;
+          margin-left: 20px;
+      }
+      .movie-info {
+          /* Remove max-width to allow it to stretch */
+          margin-right: 20px;
+      }
+      .movie-info img {
+          max-width: 100%;
+          height: auto;
+          display: block;
+          margin-bottom: 10px;
+          border: 2px solid pink; /* Pink border */
+          padding: 5px; /* Padding around the image */
+      }
+      .movie-info h2 {
+          font-size: 34px;
+          margin-bottom: 10px;
+      }
+      .movie-info p {
+          font-size: 20px;
+          line-height: 1.6;
+      }
+      p#movie-vote-average {
+          font-size: 24px;
+          font-weight: bold;
+          text-align: left;
+          text-decoration: underline;
+          text-decoration-color: #e83283;
+          text-decoration-thickness: 4px; /* Adjust thickness of the underline */
+          text-underline-offset: 6px; /* Adjust offset to move the underline down */
+      }
+      .movie-info p#movie-release-date {
+          font-size: 18px;
+          font-style: italic;
+      }
+  
+      p#movie-overview {
+          width: 100%; /* Ensure it spans full width */
+          display: block; /* Ensure it behaves as a block-level element */
+          white-space: pre-line; /* Preserve line breaks */
+      }
+      .trailer {
+          flex: 1;
+          margin-top: 20px;
+          margin-left: 10%;
+      }
+      .trailer iframe {
+          width: 60%;
+          height: 315px;
+      }
+  </style>
+  
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
@@ -88,15 +108,26 @@
           </div>
         </div>
       </nav>
-    <div class="movie-info">
-        <img id="movie-img" src="" alt="Movie Poster">
-        <p id="movie-vote-average"></p>
-        <p id="movie-release-date"></p>
-        <h2 id="movie-title"></h2>
-        <p id="movie-overview"></p>
+    <div class="movie-details">
+        <div class="movie-info">
+            <img id="movie-img" src="" alt="Movie Poster">
+            <p id="movie-release-date"></p>
+            <h2 id="movie-title"></h2>
+        </div>
+        <div class="trailer">
+            <h3>Trailer</h3>
+            <div id="trailer-container"></div>
+            <p id="movie-vote-average"></p>
+        </div>
+    </div>
+    <div class="movie-details" >
+      <div class="movie-info">
+      <p id="movie-overview"></p>
+    </div>
     </div>
 
     <script>
+        const apiKey = "c7df8f94e93761c777c141b65c987c3e";
         const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
         const IMAGE_SIZE = "w300"; // Use a larger size for the detail view
 
@@ -105,7 +136,7 @@
         const movieId = urlParams.get('id');
 
         if (movieId) {
-            fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=c7df8f94e93761c777c141b65c987c3e`)
+            fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=en-US`)
                 .then(response => response.json())
                 .then(movie => {
                     document.getElementById('movie-img').src = `${IMAGE_BASE_URL}${IMAGE_SIZE}${movie.poster_path}`;
@@ -113,6 +144,25 @@
                     document.getElementById('movie-overview').textContent = movie.overview;
                     document.getElementById('movie-release-date').textContent = `Release Date: ${movie.release_date}`;
                     document.getElementById('movie-vote-average').textContent = `Rating: ${movie.vote_average}/10`;
+                    
+                    // Fetch the movie trailers
+                    fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}&language=en-US`)
+                        .then(response => response.json())
+                        .then(videoData => {
+                            const trailer = videoData.results.find(video => video.type === "Trailer" && video.site === "YouTube");
+                            if (trailer) {
+                                const trailerContainer = document.getElementById('trailer-container');
+                                const iframe = document.createElement('iframe');
+                                iframe.src = `https://www.youtube.com/embed/${trailer.key}`;
+                                iframe.frameBorder = "0";
+                                iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+                                iframe.allowFullscreen = true;
+                                trailerContainer.appendChild(iframe);
+                            } else {
+                                console.error('No trailer found for this movie.');
+                            }
+                        })
+                        .catch(error => console.error('Error fetching movie trailers:', error));
                 })
                 .catch(error => console.error('Error fetching movie details:', error));
         } else {
@@ -123,4 +173,3 @@
     <script src="jquery-3.7.1.min.js"></script>
 </body>
 </html>
-
