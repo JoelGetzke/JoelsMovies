@@ -56,7 +56,7 @@
     cursor: pointer;
     border: 2px solid pink; /* Pink border */
     padding: 5px; /* Add padding around the image */
-    border-radius: 4px;;
+    border-radius: 4px;
 }
 #movie-img {
     border-radius: 4px;;
@@ -92,4 +92,13 @@
 
 .navbar-brand {
     margin-left: 10px;
+}
+
+.trailer-background {
+    background-color: rgb(231, 231, 39);
+    color: black;
+    font-size: x-large;
+    padding: 10px;
+    border-radius: 4px;
+    display: inline-block; /* Adjust width to content */
 }
