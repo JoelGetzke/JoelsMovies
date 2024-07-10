@@ -95,10 +95,32 @@
 }
 
 .trailer-background {
-    background-color: rgb(231, 231, 39);
+    background-color: rgba(255, 192, 203, 0.5); /* Adjust the alpha value (0.5) for more transparency */
     color: black;
     font-size: x-large;
     padding: 10px;
     border-radius: 4px;
     display: inline-block; /* Adjust width to content */
 }
+/* style.css */
+.suggestions {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    width: calc(100% - 20px);
+    display: none;
+}
+.suggestions p {
+    margin: 0;
+    padding: 10px;
+    cursor: pointer;
+}
+.suggestions p:hover {
+    background-color: #f0f0f0;
+}
+
+

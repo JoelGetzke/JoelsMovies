@@ -3,113 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="bootstrap.min.css">
-    <link src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/style.css">
     <title>Movie Details</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/style.css">
     <style>
-      body {
-          font-family: Arial, sans-serif;
-      }
-      .movie-details {
-          display: flex;
-          align-items: flex-start;
-          margin-top: 20px;
-          margin-left: 20px;
-      }
-      .movie-info {
-          /* Remove max-width to allow it to stretch */
-          margin-right: 20px;
-      }
-      .movie-info img {
-          max-width: 100%;
-          height: auto;
-          display: block;
-          margin-bottom: 10px;
-          border: 2px solid pink; /* Pink border */
-          padding: 5px; /* Padding around the image */
-      }
-      .movie-info h2 {
-          font-size: 34px;
-          margin-bottom: 10px;
-      }
-      .movie-info p {
-          font-size: 20px;
-          line-height: 1.6;
-      }
-      p#movie-vote-average {
-          font-size: 24px;
-          font-weight: bold;
-          text-align: left;
-          text-decoration: underline;
-          text-decoration-color: #e83283;
-          text-decoration-thickness: 4px; /* Adjust thickness of the underline */
-          text-underline-offset: 6px; /* Adjust offset to move the underline down */
-      }
-      .movie-info p#movie-release-date {
-          font-size: 18px;
-          font-style: italic;
-          font:'Courier New', Courier, monospace;
-      }
-      
-  
-      p#movie-overview {
-          width: 100%; /* Ensure it spans full width */
-          display: block; /* Ensure it behaves as a block-level element */
-          white-space: pre-line; /* Preserve line breaks */
-      }
-      .trailer {
-          flex: 1;
-          margin-top: 20px;
-          margin-left: 10%;
-      }
-      .trailer iframe {
-          width: 60%;
-          height: 315px;
-      }
-  </style>
-  
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .movie-details {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+        .movie-info {
+            /* Remove max-width to allow it to stretch */
+            margin-right: 20px;
+        }
+        .movie-info img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+            border: 2px solid pink; /* Pink border */
+            padding: 5px; /* Padding around the image */
+        }
+        .movie-info h2 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+        .movie-info p {
+            font-size: 20px;
+            line-height: 1.6;
+        }
+        p#movie-vote-average {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: left;
+            text-decoration: underline;
+            text-decoration-color: #e83283;
+            text-decoration-thickness: 4px; /* Adjust thickness of the underline */
+            text-underline-offset: 6px; /* Adjust offset to move the underline down */
+        }
+        .movie-info p#movie-release-date {
+            font-size: 18px;
+            font-style: italic;
+        }
+        p#movie-overview {
+            width: 100%; /* Ensure it spans full width */
+            display: block; /* Ensure it behaves as a block-level element */
+            white-space: pre-line; /* Preserve line breaks */
+        }
+        .trailer {
+            flex: 1;
+            margin-top: 20px;
+            margin-left: 10%;
+        }
+        .trailer iframe {
+            width: 60%;
+            height: 315px;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
         <div class="container-fluid">
-          <img src="../assets/movie-reel.svg" alt="movie reel">
-          <div class="navbar-brand joels-border">Joel's Movies</div>
-          <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="navbar-nav me-auto">
-              <li class="nav-item">
-                <a class="nav-link active" href="../index.html">Home
-                  <span class="visually-hidden">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../theaterMovies.html">Theater Movies</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../whatsHot.html">What's Hot</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="../categoryPages/action.html">Action</a>
-                  <a class="dropdown-item" href="../categoryPages/comedy.html">Comedy</a>
-                  <a class="dropdown-item" href="../categoryPages/drama.html">Drama</a>
-                  <a class="dropdown-item" href="../categoryPages/fantasy.html">Fantasy</a>
-                  <a class="dropdown-item" href="../categoryPages/horror.html">Horror</a>
-                  <a class="dropdown-item" href="../categoryPages/sciFi.html">Sci-Fi</a>
-                  <a class="dropdown-item" href="../categoryPages/thriller.html">Thriller</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="../categoryPages/allMovies.html">All Movies</a>
-                </div>
-              </li>
-            </ul>
-            <form class="d-flex">
-              <input class="form-control me-sm-2" type="search" placeholder="Search">
-              <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form>
-          </div>
+            <img src="../assets/movie-reel.svg" alt="movie reel">
+            <div class="navbar-brand joels-border">Joel's Movies</div>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../index.html">Home
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../theaterMovies.html">Theater Movies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../whatsHot.html">What's Hot</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="../categoryPages/action.html">Action</a>
+                            <a class="dropdown-item" href="../categoryPages/comedy.html">Comedy</a>
+                            <a class="dropdown-item" href="../categoryPages/drama.html">Drama</a>
+                            <a class="dropdown-item" href="../categoryPages/fantasy.html">Fantasy</a>
+                            <a class="dropdown-item" href="../categoryPages/horror.html">Horror</a>
+                            <a class="dropdown-item" href="../categoryPages/sciFi.html">Sci-Fi</a>
+                            <a class="dropdown-item" href="../categoryPages/thriller.html">Thriller</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="../categoryPages/allMovies.html">All Movies</a>
+                        </div>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-sm-2" type="search" placeholder="Search">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
         </div>
-      </nav>
+    </nav>
+
     <div class="movie-details">
         <div class="movie-info">
             <img id="movie-img" src="" alt="Movie Poster">
@@ -122,12 +118,14 @@
             <p id="movie-vote-average"></p>
         </div>
     </div>
-    <div class="movie-details" >
-      <div class="movie-info">
-      <p id="movie-overview"></p>
-    </div>
+    <div class="movie-details">
+        <div class="movie-info">
+            <p id="movie-overview"></p>
+        </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="jquery-3.7.1.min.js"></script>
     <script>
         const apiKey = "c7df8f94e93761c777c141b65c987c3e";
         const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
@@ -171,7 +169,9 @@
             console.error('No movie ID found in URL');
         }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="jquery-3.7.1.min.js"></script>
 </body>
 </html>
+
+
+
+
