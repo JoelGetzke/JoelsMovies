@@ -30,7 +30,7 @@ const getTrendMovies = () => {
         .then(data => {
             if (data && data.results) {
                 const postersSection = document.createElement('div');
-                postersSection.classList.add('movie-posters'); // Add a class for styling
+                postersSection.classList.add('movie-posters'); 
                 document.body.appendChild(postersSection);
 
                 data.results.forEach(movie => {
@@ -38,7 +38,7 @@ const getTrendMovies = () => {
                     img.src = `${IMAGE_BASE_URL}${IMAGE_SIZE}${movie.poster_path}`;
                     img.alt = movie.title;
                     img.id = `movie-${movie.id}`;
-                    img.classList.add('movie-poster'); // Add a class for styling
+                    img.classList.add('movie-poster'); 
 
                     img.addEventListener('click', () => {
                         const movieDetailsURL = `./assets/movie-details.html?id=${movie.id}`;
@@ -56,7 +56,7 @@ const getTrendMovies = () => {
         });
 }
 
-// Sample usage - do not modify
+// Call the function to get trending movies
 getTrendMovies();
 
 
