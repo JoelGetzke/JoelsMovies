@@ -2,7 +2,7 @@ const apiKey = 'c7df8f94e93761c777c141b65c987c3e';
 
 // Fetch popular movies from TMDB API
 async function fetchMovies() {
-  const response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`); //change this to search for movies not just popular!
+  const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=inc`); //change this to search for movies
   const data = await response.json();
   return data.results.map(movie => ({ name: movie.title }));
 }
