@@ -6,86 +6,163 @@
     <title>Joel's Movies</title>
     <link rel="stylesheet" href="assets/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="assets/style.css">
+    <style>
+        .movie-details {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+        .movie-info {
+            margin-right: 20px;
+        }
+        .movie-info img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+            border: 2px solid pink; /* Pink border */
+            padding: 5px; /* Padding around the image */
+        }
+        .movie-info h2 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+        .movie-info p {
+            font-size: 20px;
+            line-height: 1.6;
+        }
+        p#movie-vote-average {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: left;
+            text-decoration: underline;
+            text-decoration-color: #e83283;
+            text-decoration-thickness: 4px; /* Adjust thickness of the underline */
+            text-underline-offset: 6px; /* Adjust offset to move the underline down */
+        }
+        .movie-info p#movie-release-date {
+            font-size: 18px;
+            font-style: italic;
+        }
+        p#movie-overview {
+            width: 100%; /* Ensure it spans full width */
+            display: block; /* Ensure it behaves as a block-level element */
+            white-space: pre-line; /* Preserve line breaks */
+        }
+        .trailer {
+            flex: 1;
+            margin-top: 20px;
+        }
+        .trailer iframe {
+            width: 100%;
+            height: 315px;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
         <div class="container-fluid">
-          <img src="./assets/movie-reel.svg" alt="movie reel">
-          <div class="navbar-brand joels-border">Joel's Movies</div>
-          <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="navbar-nav me-auto">
-              <li class="nav-item">
-                <a class="nav-link active" href="#">Home
-                  <span class="visually-hidden">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="theaterMovies.html">Theater Movies</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="whatsHot.html">What's Hot</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="categoryPages/action.html">Action</a>
-                  <a class="dropdown-item" href="categoryPages/comedy.html">Comedy</a>
-                  <a class="dropdown-item" href="categoryPages/drama.html">Drama</a>
-                  <a class="dropdown-item" href="categoryPages/fantasy.html">Fantasy</a>
-                  <a class="dropdown-item" href="categoryPages/horror.html">Horror</a>
-                  <a class="dropdown-item" href="categoryPages/sciFi.html">Sci-Fi</a>
-                  <a class="dropdown-item" href="categoryPages/thriller.html">Thriller</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="categoryPages/allMovies.html">All Movies</a>
-                </div>
-              </li>
-            </ul>
-            <form class="d-flex" id="search-form">
-              <input class="form-control me-sm-2" type="search" name="search" placeholder="Search">
-              <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form>
-          </div>
+            <img src="./assets/movie-reel.svg" alt="movie reel">
+            <div class="navbar-brand joels-border">Joel's Movies</div>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="theaterMovies.html">Theater Movies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="whatsHot.html">What's Hot</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#" data-value="28">Action</a>
+                            <a class="dropdown-item" href="#" data-value="35">Comedy</a>
+                            <a class="dropdown-item" href="#" data-value="18">Drama</a>
+                            <a class="dropdown-item" href="#" data-value="14">Fantasy</a>
+                            <a class="dropdown-item" href="#" data-value="27">Horror</a>
+                            <a class="dropdown-item" href="#" data-value="878">Sci-Fi</a>
+                            <a class="dropdown-item" href="#" data-value="53">Thriller</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">All Movies</a>
+                        </div>
+                    </li>
+                </ul>
+                <form class="d-flex" id="search-form">
+                    <input class="form-control me-sm-2" type="search" name="search" placeholder="Search">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
         </div>
-      </nav>
-      <section>
+    </nav>
+
+    <section>
         <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="jumbotron text-center">
-                <h1 class="display-3 bold-underlined">Welcome to Joel's Movies</h1>
-                <p class="lead">Tired of endlessly scrolling through your streaming services, searching for that perfect movie to watch? Look no further than Joel's Movies! We've simplified the process for you. Just select your preferred movie category, and with a click of the "Start Watching" button, we'll randomly suggest a top-rated movie from that category.</p>
-                <hr class="my-4">
-                <div class="container-one">
-                <p class="my-2" >So, what are you waiting for? Start watching now!</p>
-                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                    <div class="btn-group padding-bottom" role="group">
-                      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        Categories
-                      </button>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Comedy </a></li>
-                        <li><a class="dropdown-item" href="#">Drama</a></li>
-                        <li><a class="dropdown-item" href="#">Fantasy</a></li>
-                        <li><a class="dropdown-item" href="#">Horror</a></li>
-                        <li><a class="dropdown-item" href="#">Sci-Fi</a></li>
-                        <li><a class="dropdown-item" href="#">Thriller</a></li>
-                        <li><a class="dropdown-item" href="#">All Movies</a></li>
-                      </ul>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="jumbotron text-center">
+                        <h1 class="display-3 bold-underlined">Welcome to Joel's Movies</h1>
+                        <p class="lead">Tired of endlessly scrolling through your streaming services, searching for that perfect movie to watch? Look no further than Joel's Movies! We've simplified the process for you. Just select your preferred movie category, and with a click of the "Start Watching" button, we'll randomly suggest a top-rated movie from that category.</p>
+                        <hr class="my-4">
+                        <div class="container-one">
+                            <p class="my-2">So, what are you waiting for? Start watching now!</p>
+                            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="category-button">
+                                    Category
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" data-value="28">Action</a></li>
+                                    <li><a class="dropdown-item" href="#" data-value="35">Comedy</a></li>
+                                    <li><a class="dropdown-item" href="#" data-value="18">Drama</a></li>
+                                    <li><a class="dropdown-item" href="#" data-value="14">Fantasy</a></li>
+                                    <li><a class="dropdown-item" href="#" data-value="27">Horror</a></li>
+                                    <li><a class="dropdown-item" href="#" data-value="878">Sci-Fi</a></li>
+                                    <li><a class="dropdown-item" href="#" data-value="53">Thriller</a></li>
+                                    <div class="dropdown-divider"></div>
+                                    <li><a class="dropdown-item" href="#">All Movies</a></li>
+                                </ul>
+                            </div>
+                            <p class="lead">
+                                <button class="btn btn-primary btn-lg" id="start-button">Start Watching</button>
+                            </p>
+                        </div>
                     </div>
-                  </div>
-                <p class="lead">
-                  <a class="btn btn-primary btn-lg" href="assets/movie-details.html?id=987686" role="button">Start Watching</a>
-                </p>
+                </div>
             </div>
-              </div>
+        </div>
+        <div id="movie-details-container" class="movie-details">
+            <div class="movie-info">
+                <img id="movie-img" src="" alt="Movie Poster">
+                <p id="movie-release-date"></p>
+                <h2 id="movie-title"></h2>
+                <p id="movie-vote-average"></p>
             </div>
-          </div>
-        </div> 
+            <div class="trailer">
+                <h3 class="trailer-background">Trailer</h3>
+                <div id="trailer-container"></div>
+            </div>
+        </div>
+        <div class="movie-details">
+            <div class="movie-info">
+                <p id="movie-overview"></p>
+            </div>
+        </div>
     </section>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="jquery-3.7.1.min.js"></script>
-<script src="assets/search.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="jquery-3.7.1.min.js"></script>
+    <script src="assets/movies.js" type="module"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
 

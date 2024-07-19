@@ -1,65 +1,72 @@
 const apiKey = 'c7df8f94e93761c777c141b65c987c3e';
 
-// Fetch popular movies from TMDB API
-async function fetchMovies() {
-  const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=inc`); //change this to search for movies
-  const data = await response.json();
-  return data.results.map(movie => ({ name: movie.title }));
-}
+document.addEventListener('DOMContentLoaded', () => {
+    let selectedCategory = '';
 
-const input = document.getElementById('rechercheInput');
-const suggestions = document.getElementById('suggestions');
-const submitBtn = document.getElementById('submit');
+    // Handle category selection
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            selectedCategory = e.target.getAttribute('data-category');
+            console.log(`Selected category: ${selectedCategory}`);
+            // Update dropdown button text to show selected category
+            document.getElementById('categoryButton').textContent = selectedCategory;
+        });
+    });
 
-submitBtn.addEventListener('click', function(e) {
-  e.preventDefault();
+    // Handle "Start Watching" button click
+    document.getElementById('startWatchingBtn').addEventListener('click', async (e) => {
+        e.preventDefault();
+
+        if (selectedCategory) {
+            try {
+                const movie = await fetchRandomTopRatedMovie(selectedCategory);
+                if (movie) {
+                    window.location.href = `assets/movie-details.html?id=${movie.id}`;
+                } else {
+                    alert('No top-rated movies found in this category.');
+                }
+            } catch (error) {
+                console.error('Error fetching movies:', error);
+                alert('Failed to fetch movies. Please try again.');
+            }
+        } else {
+            alert('Please select a category.');
+        }
+    });
 });
 
-const toLowerCase = (s) => s.toLowerCase();
-const strIncludes = (s1) => (s2) => s1.includes(s2);
-const filterByName = (val) => ({ name }) => strIncludes(toLowerCase(name))(toLowerCase(val));
+// Fetch a random top-rated movie from the selected category
+async function fetchRandomTopRatedMovie(category) {
+    const genreMapping = {
+        Action: 28,
+        Comedy: 35,
+        Drama: 18,
+        Fantasy: 14,
+        Horror: 27,
+        'Sci-Fi': 878,
+        Thriller: 53,
+        All: null
+    };
 
-const empty = (element) => {
-  while (element.firstElementChild) {
-    element.firstElementChild.remove();
-  }
-};
+    const genreId = genreMapping[category];
 
-const getFilteredArray = (arr) => (keyword) => keyword ? arr.filter(filterByName(keyword)) : [];
+    let url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&vote_average.gte=8`;
+    if (genreId) {
+        url += `&with_genres=${genreId}`;
+    }
 
-async function setupMovieSuggestions() {
-  const movies = await fetchMovies();
-  const getFilteredMovies = getFilteredArray(movies);
+    const response = await fetch(url);
+    const data = await response.json();
+    const topRatedMovies = data.results;
 
-  input.addEventListener('input', function(e) {
-    const filteredMovies = getFilteredMovies(e.target.value);
-    updateSuggestions(suggestions, this)(filteredMovies);
-  });
+    if (topRatedMovies.length > 0) {
+        const randomIndex = Math.floor(Math.random() * topRatedMovies.length);
+        return topRatedMovies[randomIndex];
+    }
+
+    return null;
 }
 
-const getSuggestionItemEl = (suggestion) => {
-  const suggestionItem = document.createElement('div');
-  suggestionItem.classList.add('suggestion-item');
-  suggestionItem.textContent = suggestion.name;
-  return { suggestionItem };
-};
 
-const getListenerFn = (input, movie, callback) => (e) => {
-  input.value = movie.name;
 
-  if (callback && callback instanceof Function) {
-    callback(input);
-  }
-};
-
-const updateSuggestions = (container, input) => (filteredMovies) => {
-  empty(container);
-
-  filteredMovies.forEach((movie) => {
-    const { suggestionItem } = getSuggestionItemEl(movie);
-    suggestionItem.addEventListener('click', getListenerFn(input, movie, (input) => updateSuggestions(container, input)(getFilteredMovies(input.value))));
-    container.append(suggestionItem);
-  });
-};
-
-setupMovieSuggestions();
