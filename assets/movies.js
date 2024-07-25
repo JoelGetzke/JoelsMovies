@@ -20,20 +20,15 @@ const startPeriodicUpdates = () => {
 document.querySelectorAll(".dropdown-item").forEach(item => {
     item.addEventListener("click", (e) => {
         e.preventDefault();
-        selectedCategory = e.target.dataset.value;
+        selectedCategory = e.target.dataset.value || "All";
         categoryButton.textContent = e.target.textContent;
-        console.log('Category selected:', selectedCategory);
     });
 });
 
 startButton.addEventListener("click", () => {
-    console.log('Start button clicked');
     if (selectedCategory) {
         clearMovieDetails();
-        getMovie(selectedCategory, (movie) => {
-            console.log('Movie received:', movie);
-            handleMovie(movie);
-        });
+        getMovie(selectedCategory, handleMovie);
     } else {
         alert("Please select a category.");
     }
@@ -76,8 +71,7 @@ const showMovie = (movie) => {
     fetch(`https://api.themoviedb.org/3/movie/${movie.id}/videos?api_key=${apiKey}`)
         .then(response => response.json())
         .then(data => {
-            console.log('Trailer data:', data);
-            if (!data.results) {
+            if (!data.results || data.results.length === 0) {
                 console.error('No trailer results found.');
                 document.getElementById('trailer-container').innerHTML = "<p>No trailer available.</p>";
                 return;
@@ -95,6 +89,8 @@ const showMovie = (movie) => {
             document.getElementById('trailer-container').innerHTML = "<p>Error fetching trailer.</p>";
         });
 };
+
+
 
 
 
