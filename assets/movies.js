@@ -4,15 +4,20 @@ const apiKey = "c7df8f94e93761c777c141b65c987c3e";
 
 const categoryButton = document.querySelector("#category-button");
 const startButton = document.querySelector("#start-button");
+const spinner = document.querySelector(".lds-spinner");
 
 let selectedCategory = "";
 
 // Function to periodically fetch new movies
 const startPeriodicUpdates = () => {
-    const refreshInterval = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+    const refreshInterval = 24 * 60 * 60 * 1000; // 14 hours in milliseconds
     setInterval(() => {
         if (selectedCategory) {
-            getMovie(selectedCategory, handleMovie);
+            showSpinner();
+            getMovie(selectedCategory, (movie) => {
+                hideSpinner();
+                handleMovie(movie);
+            });
         }
     }, refreshInterval);
 };
@@ -28,7 +33,11 @@ document.querySelectorAll(".dropdown-item").forEach(item => {
 startButton.addEventListener("click", () => {
     if (selectedCategory) {
         clearMovieDetails();
-        getMovie(selectedCategory, handleMovie);
+        showSpinner();
+        getMovie(selectedCategory, (movie) => {
+            hideSpinner();
+            handleMovie(movie);
+        });
     } else {
         alert("Please select a category.");
     }
@@ -40,55 +49,64 @@ startPeriodicUpdates();
 const clearMovieDetails = () => {
     document.getElementById('movie-img').src = "";
     document.getElementById('movie-title').textContent = "";
-    document.getElementById('movie-release-date').textContent = "";
     document.getElementById('movie-vote-average').textContent = "";
+    document.getElementById('movie-release-date').textContent = "";
     document.getElementById('movie-overview').textContent = "";
     document.getElementById('trailer-container').innerHTML = "";
 };
 
 const handleMovie = (movie) => {
-    if (!movie) {
-        console.error('No movie data received or all recent movies filtered out.');
-        return;
-    }
+    document.getElementById('movie-img').src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+    document.getElementById('movie-title').textContent = movie.title;
+    document.getElementById('movie-vote-average').textContent = `Vote Average: ${movie.vote_average}`;
+    document.getElementById('movie-release-date').textContent = `Release Date: ${movie.release_date}`;
+    document.getElementById('movie-overview').textContent = movie.overview;
+
+    const trailerContainer = document.getElementById('trailer-container');
+    trailerContainer.innerHTML = "";
+
+    getTrailer(movie.id, (trailerUrl) => {
+        if (trailerUrl) {
+            const iframe = document.createElement('iframe');
+            iframe.src = trailerUrl;
+            iframe.width = "560";
+            iframe.height = "315";
+            iframe.frameBorder = "0";
+            iframe.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
+            iframe.allowFullscreen = true;
+            trailerContainer.appendChild(iframe);
+        }
+    });
 
     addRecentMovie(movie);
-    showMovie(movie);
 };
 
-const showMovie = (movie) => {
-    if (!movie) {
-        console.error('No movie found to display.');
-        return;
-    }
+const getTrailer = (movieId, callback) => {
+    const url = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}&language=en-US`;
 
-    document.getElementById('movie-img').src = `https://image.tmdb.org/t/p/w300${movie.poster_path}`;
-    document.getElementById('movie-title').textContent = movie.title;
-    document.getElementById('movie-overview').textContent = movie.overview;
-    document.getElementById('movie-release-date').textContent = `Release Date: ${movie.release_date}`;
-    document.getElementById('movie-vote-average').textContent = `Rating: ${movie.vote_average}/10`;
-
-    fetch(`https://api.themoviedb.org/3/movie/${movie.id}/videos?api_key=${apiKey}`)
+    fetch(url)
         .then(response => response.json())
         .then(data => {
-            if (!data.results || data.results.length === 0) {
-                console.error('No trailer results found.');
-                document.getElementById('trailer-container').innerHTML = "<p>No trailer available.</p>";
-                return;
-            }
-
             const trailer = data.results.find(video => video.type === "Trailer" && video.site === "YouTube");
-            if (trailer) {
-                document.getElementById('trailer-container').innerHTML = `<iframe src="https://www.youtube.com/embed/${trailer.key}" frameborder="0" allowfullscreen></iframe>`;
-            } else {
-                document.getElementById('trailer-container').innerHTML = "<p>No trailer available.</p>";
-            }
+            const trailerUrl = trailer ? `https://www.youtube.com/embed/${trailer.key}` : null;
+            callback(trailerUrl);
         })
         .catch(error => {
-            console.error('Error fetching movie trailers:', error);
-            document.getElementById('trailer-container').innerHTML = "<p>Error fetching trailer.</p>";
+            console.error("Error fetching trailer:", error);
+            callback(null);
         });
 };
+
+spinner.style.display = "none";
+
+const showSpinner = () => {
+    spinner.style.display = "inline-block";
+};
+
+const hideSpinner = () => {
+    spinner.style.display = "none";
+};
+
 
 
 

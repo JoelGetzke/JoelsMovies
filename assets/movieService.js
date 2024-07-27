@@ -5,7 +5,7 @@ const minVotes = 300; // Set a threshold for minimum number of votes to consider
 const fetchMovies = async (genreId, page) => {
     try {
         const genreParam = genreId === "All" ? allGenres.join(',') : genreId;
-        const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreParam}&vote_average.gte=7.0&vote_average.lte=10&page=${page}&primary_release_date.gte=1994-01-01`);
+        const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreParam}&vote_average.gte=7.0&vote_average.lte=10.0&page=${page}&primary_release_date.gte=1994-01-01`);
         const data = await response.json();
         return data.results || [];
     } catch (error) {
