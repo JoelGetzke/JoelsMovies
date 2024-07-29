@@ -5,6 +5,7 @@ const apiKey = "c7df8f94e93761c777c141b65c987c3e";
 const categoryButton = document.querySelector("#category-button");
 const startButton = document.querySelector("#start-button");
 const spinner = document.querySelector(".lds-spinner");
+const trailerBackground = document.querySelector('.trailer-background');
 
 let selectedCategory = "";
 
@@ -33,7 +34,9 @@ document.querySelectorAll(".dropdown-item").forEach(item => {
 startButton.addEventListener("click", () => {
     if (selectedCategory) {
         clearMovieDetails();
+        showMoviePoster();
         showSpinner();
+        showTrailerBackground();
         getMovie(selectedCategory, (movie) => {
             hideSpinner();
             handleMovie(movie);
@@ -97,7 +100,28 @@ const getTrailer = (movieId, callback) => {
         });
 };
 
+if (document.getElementById('movie-img').style.display !== "none") {
+    document.getElementById('movie-img').style.display = "none";
+}
+
+if (trailerBackground.style.display !== "none") {
+    // Hide the element
+    trailerBackground.style.display = "none";
+}
+
+
+
+
 spinner.style.display = "none";
+
+
+const showMoviePoster = () => {
+    document.getElementById('movie-img').style.display = "inline-block";
+};
+
+const showTrailerBackground = () => {
+    trailerBackground.style.display = "inline-block";
+};
 
 const showSpinner = () => {
     spinner.style.display = "inline-block";
