@@ -7,6 +7,8 @@ const startButton = document.querySelector("#start-button");
 const spinner = document.querySelector(".lds-spinner");
 const trailerBackground = document.querySelector('.trailer-background');
 
+
+
 let selectedCategory = "";
 
 // Function to periodically fetch new movies
@@ -61,9 +63,9 @@ const clearMovieDetails = () => {
 const handleMovie = (movie) => {
     document.getElementById('movie-img').src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
     document.getElementById('movie-title').textContent = movie.title;
-    document.getElementById('movie-vote-average').textContent = `Vote Average: ${movie.vote_average}`;
-    document.getElementById('movie-release-date').textContent = `Release Date: ${movie.release_date}`;
     document.getElementById('movie-overview').textContent = movie.overview;
+    document.getElementById('movie-release-date').textContent = `Release Date: ${movie.release_date}`;
+    document.getElementById('movie-vote-average').textContent = `Rating: ${movie.vote_average}/10`;
 
     const trailerContainer = document.getElementById('trailer-container');
     trailerContainer.innerHTML = "";

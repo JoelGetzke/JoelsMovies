@@ -13,7 +13,7 @@
             margin-top: 20px;
         }
         .movie-info {
-            margin-right: 20px;
+            margin-left: 20px;
         }
         .movie-info img {
             max-width: 300px;
@@ -39,6 +39,7 @@
             text-decoration-color: #e83283;
             text-decoration-thickness: 4px;
             text-underline-offset: 6px;
+            margin-left: 5%;
         }
         .movie-info p#movie-release-date {
             font-size: 18px;
@@ -49,12 +50,17 @@
             display: block;
             white-space: pre-line;
         }
+        .trailer-background {
+            margin-left: 5%;
+        }
         .trailer {
             flex: 1;
             margin-top: 20px;
+            margin-left: 115px;
         }
         .trailer iframe {
-            width: 100%;
+            margin-left:5%;
+            width: 70%;
             height: 315px;
         }
     </style>
@@ -137,11 +143,11 @@
                 <img id="movie-img" src="" alt="Movie Poster">
                 <p id="movie-release-date"></p>
                 <h2 id="movie-title"></h2>
-                <p id="movie-vote-average"></p>
             </div>
             <div class="trailer">
                 <h3 class="trailer-background">Trailer</h3>
                 <div id="trailer-container"></div>
+                <p id="movie-vote-average"></p>
             </div>
         </div>
         <div class="movie-details">
