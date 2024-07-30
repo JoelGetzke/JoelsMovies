@@ -25,7 +25,7 @@ const startPeriodicUpdates = () => {
     }, refreshInterval);
 };
 
-document.querySelectorAll(".dropdown-item").forEach(item => {
+document.querySelectorAll('.btn-group .dropdown-item').forEach(item => {
     item.addEventListener("click", (e) => {
         e.preventDefault();
         selectedCategory = e.target.dataset.value || "All";

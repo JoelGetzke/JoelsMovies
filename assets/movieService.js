@@ -102,7 +102,7 @@ export const addRecentMovie = (movie) => {
 };
 
 // Event listener to handle dropdown selection
-document.querySelectorAll('.dropdown-item').forEach(item => {
+document.querySelectorAll('.btn-group .dropdown-item').forEach(item => {
     item.addEventListener('click', event => {
         const genreId = event.target.getAttribute('data-value');
         getMovie(genreId, movie => {
