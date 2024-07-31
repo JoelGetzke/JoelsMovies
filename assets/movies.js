@@ -41,12 +41,18 @@ startButton.addEventListener("click", () => {
         showTrailerBackground();
         getMovie(selectedCategory, (movie) => {
             hideSpinner();
-            handleMovie(movie);
+            if (movie) {
+                handleMovie(movie);
+            } else {
+                document.getElementById('error-container').innerHTML = '<p>All available movies selected for category. Click "Start Watching" after 10 minutes to see the list of movies once again. Movies updated daily(24hrs).</p>';
+            }
         });
     } else {
         alert("Please select a category.");
     }
 });
+
+
 
 // Call the periodic updates function when the page loads
 startPeriodicUpdates();

@@ -122,6 +122,19 @@
 .suggestions p:hover {
     background-color: #f0f0f0;
 }
+#error-container {
+    display: flex;
+    justify-content: center;
+    width: 70%;
+    margin: 0 auto;
+    align-items: center;
+    padding-top: 20px;
+    font-size: 36px;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-color: #e83283;
+    text-underline-offset: 10px;
+}
 
 
 .lds-spinner,
@@ -210,6 +223,8 @@
     opacity: 0;
   }
 }
+
+
 
 
 
