@@ -1,12 +1,19 @@
 const apiKey = "c7df8f94e93761c777c141b65c987c3e";
 const allGenres = [28, 12, 16, 35, 80, 99, 18, 10751, 14, 36, 27, 10402, 9648, 10749, 878, 10770, 53, 10752, 37];
-const minVotes = 300; // Set a threshold for minimum number of votes to consider a movie professional
+const excludedGenres = [99, 10751, 36]; // Example genres to exclude (Documentary, Family, History)
+const minVotes = 300; // Set a threshold for the minimum number of votes to consider a movie professional
 
 const fetchMovies = async (genreId, page) => {
     try {
-        const genreParam = genreId === "All" ? allGenres.join(',') : genreId;
-        const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreParam}&vote_average.gte=7.0&vote_average.lte=10.0&page=${page}&primary_release_date.gte=1994-01-01`);
+        const genreParam = genreId === "AllMovies" ? excludedGenres.join(',') : genreId;
+        const url = genreId === "AllMovies" ?
+            `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&without_genres=${genreParam}&vote_average.gte=6.5&vote_average.lte=10.0&page=${page}&primary_release_date.gte=1994-01-01` :
+            `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreParam}&vote_average.gte=6.5&vote_average.lte=10.0&page=${page}&primary_release_date.gte=1994-01-01`;
+        console.log(`Fetching movies with URL: ${url}`);
+        const response = await fetch(url);
+        console.log(`Response status: ${response.status}`);
         const data = await response.json();
+        console.log(`Fetched ${data.results.length} movies from page ${page}`);
         return data.results || [];
     } catch (error) {
         console.error('Error fetching movies:', error);
@@ -64,7 +71,7 @@ export const getMovie = async (genreId, callback) => {
     const tenMinutesAgo = Date.now() - 10 * 60 * 1000; // Changed to 10 minutes
     const recentMovieIds = storedMovies.filter(movie => movie.timestamp > tenMinutesAgo).map(movie => movie.id);
 
-    const pagesToFetch = 175; // Reduced the number of pages to fetch for demonstration
+    const pagesToFetch = genreId === "AllMovies" ? 125 : 175;
     let allMovies = await fetchAllMovies(genreId, pagesToFetch);
 
     allMovies = shuffleArray(allMovies);
@@ -105,6 +112,7 @@ export const addRecentMovie = (movie) => {
 document.querySelectorAll('.btn-group .dropdown-item').forEach(item => {
     item.addEventListener('click', event => {
         const genreId = event.target.getAttribute('data-value');
+        console.log(`Selected genre ID: ${genreId}`); // Log the selected genre ID for debugging
         getMovie(genreId, movie => {
             if (movie) {
                 // Handle movie display here
@@ -115,6 +123,10 @@ document.querySelectorAll('.btn-group .dropdown-item').forEach(item => {
         });
     });
 });
+
+
+
+
 
 
 

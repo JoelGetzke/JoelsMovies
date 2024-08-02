@@ -35,6 +35,7 @@ document.querySelectorAll('.btn-group .dropdown-item').forEach(item => {
 
 startButton.addEventListener("click", () => {
     if (selectedCategory) {
+        hideError();
         clearMovieDetails();
         showMoviePoster();
         showSpinner();
@@ -44,7 +45,7 @@ startButton.addEventListener("click", () => {
             if (movie) {
                 handleMovie(movie);
             } else {
-                document.getElementById('error-container').innerHTML = '<p>All available movies selected for category. Click "Start Watching" after 10 minutes to see the list of movies once again. Movies updated daily(24hrs).</p>';
+                document.getElementById('error-container').innerHTML = '<p>All available movies selected for category. Click "Start Watching" after 10 minutes to see the list of movies once again. Movies updated with service.</p>';
             }
         });
     } else {
@@ -133,6 +134,10 @@ const showTrailerBackground = () => {
 
 const showSpinner = () => {
     spinner.style.display = "inline-block";
+};
+
+const hideError = () => {
+    document.getElementById('error-container').innerHTML = "";
 };
 
 const hideSpinner = () => {
