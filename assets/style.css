@@ -224,7 +224,25 @@
   }
 }
 
-
+   /* Media Queries */
+   
+   @media (max-width: 768px) {
+    .movie-details {
+      flex-direction: column;
+      align-items: center;
+    }
+    .movie-info img {
+      max-width: 300px;
+    }
+    .trailer {
+      width:70%;
+      margin-top: 20px;
+      margin-left: 0;
+    }
+    .trailer iframe {
+      width: 100%;
+    }
+  }
 
 
 
