@@ -57,7 +57,7 @@ const fetchActionMoviesByPages = async (startPage, endPage) => {
 };
 
 // Sample usage to fetch pages 1 to 5 for Action genre only
-fetchActionMoviesByPages(1, 2);
+fetchActionMoviesByPages(1, 10);
 
 
 
