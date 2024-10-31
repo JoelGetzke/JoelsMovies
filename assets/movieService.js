@@ -7,8 +7,8 @@ const fetchMovies = async (genreId, page) => {
     try {
         const genreParam = genreId === "AllMovies" ? excludedGenres.join(',') : genreId;
         const url = genreId === "AllMovies" ?
-            `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&without_genres=${genreParam}&vote_average.gte=6.1&vote_average.lte=10.0&page=${page}&primary_release_date.gte=1994-01-01` :
-            `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreParam}&vote_average.gte=6.1&vote_average.lte=10.0&page=${page}&primary_release_date.gte=1994-01-01`;
+            `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&without_genres=${genreParam}&vote_average.gte=7.1&vote_average.lte=10.0&page=${page}&primary_release_date.gte=1994-01-01` :
+            `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreParam}&vote_average.gte=7.1&vote_average.lte=10.0&page=${page}&primary_release_date.gte=1994-01-01`;
         console.log(`Fetching movies with URL: ${url}`);
         const response = await fetch(url);
         console.log(`Response status: ${response.status}`);
